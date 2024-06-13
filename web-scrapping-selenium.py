@@ -22,7 +22,7 @@ if __name__ == "__main__":
     url = 'https://www.udemy.com/topic/blender/?sort=newest'
     # url = 'https://www.udemy.com/topic/blender'
 
-    max_pages = 1
+    max_pages = 35
 
     def scrape_current_page():
         names, authors, descriptions, durations, lectures, difficulties, badges, original_prices, current_prices = ([] for _ in range(9))
