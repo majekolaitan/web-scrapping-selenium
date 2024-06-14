@@ -1,3 +1,4 @@
 venv
 __pycache__
 scraped_data.csv
+udemy_courses.csv
