@@ -1,25 +1,7 @@
-
-from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
-
-from selenium.webdriver.chrome.options import Options
-
-
 import undetected_chromedriver as uc_orig
-from selenium import webdriver
-import time
-import pandas as pd
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-
-
-
-import json
+import time
 import requests
-
 import csv
 
 # Make a new class from uc_orig.Chrome and redefine quit() function to suppress OSError
@@ -43,13 +25,13 @@ if __name__ == "__main__":
     def get_course_links(driver, page_number):
         url = f'https://www.udemy.com/topic/blender/?p={page_number}&sort=newest'
         driver.get(url)
-        time.sleep(3)  # Adjust based on your internet speed
+        time.sleep(3)
         links = driver.find_elements(By.CSS_SELECTOR, "div.course-list_container__6VTg9 div.course-card_main-content__aceQ0.course-card_has-price-text__KS6c_ > div:nth-child(1) > div > h3 > a")
         return [link.get_attribute('href') for link in links]
 
     def scrape_course_details(driver, link):
         driver.get(link)
-        time.sleep(3)  # Adjust based on your internet speed
+        time.sleep(3) 
 
         def get_element_text(selector):
             try:
@@ -115,11 +97,9 @@ if __name__ == "__main__":
         driver.quit()
         return all_courses
 
-    max_pages = 1  # Change this to the number of pages you want to scrape
+    max_pages = 15 
     courses = scrape_website(max_pages)
-    # print(f"Scraped {len(courses)} courses")
 
-    # Write data to CSV file
     with open('udemy_courses.csv', 'w', newline='', encoding='utf-8') as f:
         writer = csv.DictWriter(f, fieldnames=[
             'title', 'author', 'course_id', 'description', 'badge', 
